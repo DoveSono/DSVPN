@@ -1,0 +1,119 @@
+/* Основной стиль для страницы */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Контейнер для генерации ключа и S-блока */
+.generate-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовки */
+h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Разделы для ключа и S-блока */
+.section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Заголовок секции */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Действия в секции (кнопки) */
+.section-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Кнопки */
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Скрытые элементы */
+.hidden {
+    display: none;
+}
+
+/* Блоки для отображения ключа и S-блока */
+.output-display {
+    width: 100%;
+    min-height: 100px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-top: 10px;
+}
+
+/* Уведомления об успешном действии */
+.success-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
+}
+
+.success-message button {
+    background-color: #45a049;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.success-message button:hover {
+    background-color: #3e8e41;
+}
+
+/* Разделитель */
+hr {
+    border: 1px solid #ccc;
+    margin: 20px 0;
+}

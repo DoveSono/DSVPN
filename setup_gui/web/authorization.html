@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+<div class="login-container">
+    <h2>Авторизация</h2>
+    <form id="loginForm">
+        <label for="username">Логин</label>
+        <input type="text" id="username" name="username" placeholder="Введите логин" required>
+
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+
+        <button type="submit">Войти</button>
+    </form>
+    <p id="error-message" class="hidden">Неверный логин или пароль.</p>
+</div>
+
+<script src="/web/script.js"></script>
+</body>
+</html>
