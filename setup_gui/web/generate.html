@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генерация ключа и S-блока</title>
+    <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+<div class="generate-container">
+    <h2>Генерация ключа и S-блока</h2>
+
+
+    <div id="keySection" class="section">
+        <div class="section-header">
+            <h3>Ключ</h3>
+            <div class="section-actions">
+                <button id="generateKeyBtn">Сгенерировать ключ</button>
+                <button id="uploadKeyBtn">Загрузить ключ</button>
+            </div>
+        </div>
+        <input type="file" id="uploadKeyInput" class="hidden" accept=".txt">
+        <pre id="keyDisplay" class="output-display"></pre>
+        <button id="saveKeyBtn" class="hidden">Сохранить ключ в файл</button>
+    </div>
+
+    <hr>
+
+
+    <div id="sBlockSection" class="section">
+        <div class="section-header">
+            <h3>S-блок</h3>
+            <div class="section-actions">
+                <button id="generateSBlockBtn">Сгенерировать S-блок</button>
+                <button id="uploadSBlockBtn">Загрузить S-блок</button>
+            </div>
+        </div>
+        <input type="file" id="uploadSBlockInput" class="hidden" accept=".txt">
+        <pre id="sBlockDisplay" class="output-display"></pre>
+        <button id="saveSBlockBtn" class="hidden">Сохранить S-блок в файл</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="/web/generate.js"></script>
+</body>
+</html>
