@@ -1,7 +1,7 @@
 package main
 
 import (
-	"DSVPN_PROD/gost" // Модуль для генерации ключа и S-блока
+	"DSVPN/gost" // Модуль для генерации ключа и S-блока
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os/exec"
 	"runtime"
+	"sync"
 	"time"
 )
 
@@ -32,6 +33,7 @@ func openBrowser(url string) {
 }
 
 func main() {
+	var wg sync.WaitGroup
 	r := gin.Default()
 
 	// Создаем сессию с использованием cookie
@@ -118,8 +120,10 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"sBlock": sBlock})
 	})
 
-	// Запуск сервера в отдельной горутине
+	// Добавление горутины с сервером в wait-группу
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		err := r.Run(":8080")
 		if err != nil {
 			log.Fatal("Ошибка запуска сервера: ", err)
@@ -132,6 +136,6 @@ func main() {
 	// Открытие сайта
 	openBrowser("http://localhost:8080")
 
-	// Главный процесс будет продолжать работать, сервер остается запущенным
-	select {} // Блокируем основной поток, чтобы сервер продолжал работать
+	// Ожидание завершения горутины
+	wg.Wait()
 }
