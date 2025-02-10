@@ -1,119 +1,177 @@
-/* Основной стиль для страницы */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    padding: 0;
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Контейнер для генерации ключа и S-блока */
-.generate-container {
-    width: 80%;
-    max-width: 900px;
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Заголовки */
-h2, h3 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Разделы для ключа и S-блока */
-.section {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-/* Заголовок секции */
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-/* Действия в секции (кнопки) */
-.section-actions {
-    display: flex;
-    gap: 10px;
-}
-
-/* Кнопки */
-button {
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* Скрытые элементы */
-.hidden {
-    display: none;
-}
-
-/* Блоки для отображения ключа и S-блока */
-.output-display {
-    width: 100%;
-    min-height: 100px;
-    background-color: #f4f4f4;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: monospace;
-    font-size: 14px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    margin-top: 10px;
-}
-
-/* Уведомления об успешном действии */
+/* Стили для успешного сообщения */
 .success-message {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* Зеленый фон */
     color: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    z-index: 1000;
+    z-index: 9999;
+    width: 300px;
+    max-width: 100%;
+    box-sizing: border-box; /* Учитываем padding в ширину */
 }
 
-.success-message button {
-    background-color: #45a049;
+/* Стили для формы */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Стили для input и select */
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Стили для кнопок */
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #6c757d; /* Серый цвет для кнопки */
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 10px;
     cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box; /* Учитываем padding в ширину */
 }
 
-.success-message button:hover {
-    background-color: #3e8e41;
+/* Ховер эффект для кнопки */
+button:hover {
+    background-color: #5a6268; /* Более темный оттенок серого при наведении */
 }
 
-/* Разделитель */
-hr {
+/* Стили для сообщения об ошибке */
+#error-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+/* Добавляем класс для скрытия ошибок */
+.hidden {
+    display: none;
+}
+
+
+/* Стили для кнопок */
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #6c757d; /* Серый цвет для кнопки */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ховер эффект для кнопок */
+button:hover {
+    background-color: #5a6268; /* Темный серый при наведении */
+}
+
+/* Стили для кнопки "Продолжить" */
+.continue-button {
+    position: fixed;
+    bottom: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 10%;
+    box-sizing: border-box;
+}
+
+.continue-button:hover {
+    background-color: #5a6268;
+}
+
+/* Стили для вывода (key, sblock) */
+.output-display {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-top: 10px;
+    font-family: monospace;
+    background-color: #f4f4f9;
+    padding: 10px;
     border: 1px solid #ccc;
-    margin: 20px 0;
+    border-radius: 5px;
+    max-width: 100%;
+    min-height: 50px;
+}
+
+/* Стиль для сообщений об успешной генерации или загрузке */
+.status-message {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4CAF50;  /* Зеленый цвет для успеха */
+    margin-top: 10px;
+}
+
+
+/* Стили для секций */
+.section {
+    margin-bottom: 30px;
+}
+
+/* Стиль для сообщений о статусе */
+.message {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4CAF50;  /* Зеленый цвет для успеха */
+    margin-top: 10px;
+    position: absolute; /* Ожидаем, что сообщение будет внизу секции */
+    bottom: 10px; /* Расположим сообщение немного от нижней границы */
+    width: 100%; /* Чтобы сообщение растягивалось по ширине */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+/* Стили для секций */
+.section {
+    position: relative; /* Для позиционирования сообщений внутри */
+    margin-bottom: 30px;
+    padding-bottom: 40px; /* Увеличим отступ снизу для сообщения */
+    box-sizing: border-box;
+}
+
+/* Стили для контейнера */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
