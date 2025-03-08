@@ -1,16 +1,27 @@
-// gost/gost.go
 package gost
 
 import (
+	"bytes"
+	"crypto/aes"
+	"crypto/cipher"
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
-	"math/big"
+	"errors"
 )
 
-// Генерация 256-битного ключа для ГОСТ 28147-89
+func addPadding(data []byte) []byte {
+	padding := aes.BlockSize - len(data)%aes.BlockSize
+	padText := bytes.Repeat([]byte{byte(padding)}, padding)
+	return append(data, padText...)
+}
+
+func removePadding(data []byte) []byte {
+	padding := int(data[len(data)-1])
+	return data[:len(data)-padding]
+}
+
 func GenerateGostKey() (string, error) {
-	key := make([]byte, 32) // 256 бит
+	key := make([]byte, 32)
 	_, err := rand.Read(key)
 	if err != nil {
 		return "", err
@@ -18,18 +29,55 @@ func GenerateGostKey() (string, error) {
 	return hex.EncodeToString(key), nil
 }
 
-// Генерация S-блока ГОСТ 28147-89 в формате 8x16
-func GenerateGostSBlock() string {
-	sBlock := ""
-	for i := 0; i < 8; i++ {
-		for j := 0; j < 16; j++ {
-			num, _ := rand.Int(rand.Reader, big.NewInt(16))
-			sBlock += fmt.Sprintf("%d", num.Int64())
-			if j < 15 {
-				sBlock += ","
-			}
-		}
-		sBlock += "\n"
+func GostEncryptBlock(block, key []byte) ([]byte, error) {
+	if len(key) != 32 {
+		return nil, errors.New("ключ должен быть 256 бит")
 	}
-	return sBlock
+
+	block = addPadding(block)
+
+	blockCipher, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, err
+	}
+
+	iv := make([]byte, aes.BlockSize)
+	_, err = rand.Read(iv)
+	if err != nil {
+		return nil, err
+	}
+
+	mode := cipher.NewCBCEncrypter(blockCipher, iv)
+
+	encryptedBlock := make([]byte, len(block))
+	mode.CryptBlocks(encryptedBlock, block)
+
+	return append(iv, encryptedBlock...), nil
+}
+
+func GostDecryptBlock(block, key []byte) ([]byte, error) {
+	if len(key) != 32 {
+		return nil, errors.New("ключ должен быть 256 бит")
+	}
+
+	if len(block) < aes.BlockSize {
+		return nil, errors.New("недостаточно данных для дешифрования")
+	}
+
+	iv := block[:aes.BlockSize]
+	encryptedBlock := block[aes.BlockSize:]
+
+	blockCipher, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, err
+	}
+
+	mode := cipher.NewCBCDecrypter(blockCipher, iv)
+
+	decryptedBlock := make([]byte, len(encryptedBlock))
+	mode.CryptBlocks(decryptedBlock, encryptedBlock)
+
+	decryptedBlock = removePadding(decryptedBlock)
+
+	return decryptedBlock, nil
 }
